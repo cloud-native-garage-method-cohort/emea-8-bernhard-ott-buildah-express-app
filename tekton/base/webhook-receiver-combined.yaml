@@ -4,7 +4,7 @@ kind: EventListener
 metadata:
   name: webhook-receiver
 spec:
-  serviceAccountName: buildah-bot
+  serviceAccountName: webhook-receiver
   triggers:
     - template:
         name: webhook-receiver
@@ -23,7 +23,7 @@ spec:
       metadata:
         generateName: buildah-pipeline-run-
       spec:
-        serviceAccountName: buildah-bot
+        serviceAccountName: webhook-receiver
         params:
           - name: app-name
             value: bott-node
