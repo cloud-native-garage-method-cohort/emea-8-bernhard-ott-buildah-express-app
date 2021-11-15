@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: app
         app.openshift.io/vcs-uri: foo
         app.openshift.io/vcs-ref: bar
-        # app.openshift.io/runtime: js
+        app.openshift.io/runtime: js
     spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

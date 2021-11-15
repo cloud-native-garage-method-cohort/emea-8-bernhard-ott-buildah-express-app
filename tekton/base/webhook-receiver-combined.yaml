@@ -32,7 +32,7 @@ spec:
           - name: image-repo
             value: quay.io/bott_ibm/bott-node
         pipelineRef:
-          name: nodejs
+          name: buildah-pipeline
         workspaces:
           - name: shared-data
             volumeClaimTemplate:
