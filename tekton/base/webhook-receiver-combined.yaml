@@ -1,0 +1,63 @@
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: webhook-receiver
+spec:
+  serviceAccountName: webhook-receiver
+  triggers:
+    - template:
+        name: webhook-receiver
+      bindings:
+        - ref: webhook-receiver
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: webhook-receiver
+spec:
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: buildah-pipeline-run-
+      spec:
+        serviceAccountName: buildah-bot
+        params:
+          - name: app-name
+            value: bott-node
+          - name: source-repo
+            value: https://github.com/cloud-native-garage-method-cohort/emea-8-bernhard-ott-buildah-express-app.git
+          - name: image-repo
+            value: quay.io/bott_ibm/bott-node
+        pipelineRef:
+          name: nodejs
+        workspaces:
+          - name: shared-data
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 1Gi
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: webhook-receiver
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: webhook-receiver
+spec:
+  port:
+    targetPort: 8080
+  to:
+    name: el-webhook-receiver
+    kind: Service
+    weight: 100
