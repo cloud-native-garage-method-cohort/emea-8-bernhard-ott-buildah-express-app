@@ -1,0 +1,25 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: buildah-pipeline-run-
+spec:
+  pipelineRef:
+    name: buildah-pipeline
+  serviceAccountName: buildah-bot
+  params:
+    - name: app-name
+      value: bott-node
+    - name: source-repo
+      value: https://github.com/cloud-native-garage-method-cohort/emea-8-bernhard-ott-buildah-express-app.git
+    - name: image-repo
+      value: quay.io/bott_ibm/bott-node
+  workspaces:
+    - name: shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
