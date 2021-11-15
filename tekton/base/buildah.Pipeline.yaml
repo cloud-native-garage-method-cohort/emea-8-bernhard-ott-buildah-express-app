@@ -9,6 +9,10 @@ spec:
     - name: app-name
     - name: source-repo
     - name: image-repo
+    - name: sha
+      type: string
+      default: ""
+      description: Precise SHA of the commit to build
   tasks:
     - name: git-clone
       taskRef:
@@ -16,7 +20,9 @@ spec:
         kind: ClusterTask
       params:
         - name: url
-          value: $(params.source-repo)
+          value: $(tt.params.source-repo)
+        - name: revision
+          value: $(tt.params.commit-sha)
         - name: subdirectory
           value: ""
         - name: deleteExisting
