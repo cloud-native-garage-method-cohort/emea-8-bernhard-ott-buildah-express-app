@@ -17,6 +17,9 @@ kind: TriggerTemplate
 metadata:
   name: webhook-receiver
 spec:
+  params:
+    - name: source-repo
+    - name: commit-sha
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun

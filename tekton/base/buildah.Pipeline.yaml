@@ -9,7 +9,7 @@ spec:
     - name: app-name
     - name: source-repo
     - name: image-repo
-    - name: sha
+    - name: commit-sha
       type: string
       default: ""
       description: Precise SHA of the commit to build
@@ -20,9 +20,9 @@ spec:
         kind: ClusterTask
       params:
         - name: url
-          value: $(tt.params.source-repo)
+          value: $(params.source-repo)
         - name: revision
-          value: $(tt.params.commit-sha)
+          value: $(params.commit-sha)
         - name: subdirectory
           value: ""
         - name: deleteExisting
