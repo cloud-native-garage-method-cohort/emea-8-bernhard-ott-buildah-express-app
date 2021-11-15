@@ -23,7 +23,7 @@ spec:
       metadata:
         generateName: buildah-pipeline-run-
       spec:
-        serviceAccountName: webhook-receiver
+        serviceAccountName: buildah-bot
         params:
           - name: app-name
             value: bott-node
