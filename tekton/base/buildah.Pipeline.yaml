@@ -42,6 +42,18 @@ spec:
         workspace: shared-data
       runAfter:
         - git-clone
+    - name: run-tests
+      params:
+        - name: ARGS
+          value:
+            - install-ci-test
+      runAfter:
+        - git-clone
+      taskRef:
+        name: npm
+      workspaces:
+        - name: source
+          workspace: shared-data
     - name: kustomize
       params:
         - name: app-name
